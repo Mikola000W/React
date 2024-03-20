@@ -1,91 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { useState } from "react";
-import { BiUserCircle } from "react-icons/bi";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
-    const [like, setLike] = useState(false);
-    const [count, setCount] = useState(5);
-    const [show, setShow] = useState(true);
-    const [like2, setLike2] = useState(false);
-    const [count2, setCount2] = useState(5);
-    const [show2, setShow2] = useState(true);
-    const [like3, setLike3] = useState(false);
-    const [count3, setCount3] = useState(5);
-    const [show3, setShow3] = useState(true);
 
-    const handleLikes = () => {
-        if (!like) {
-            setLike(true);
-            setCount(count + 1);
-        } else {
-            setLike(false);
-            setCount(count - 1);
-        }
-    };
-    const handleLikes2 = () => {
-        if (!like2) {
-            setLike2(true);
-            setCount2(count2 + 1);
-        } else {
-            setLike2(false);
-            setCount2(count2 - 1);
-        }
-    };
-    const handleLikes3 = () => {
-        if (!like3) {
-            setLike3(true);
-            setCount3(count3 + 1);
-        } else {
-            setLike3(false);
-            setCount3(count3 - 1);
-        }
+    const[formData, setFormData] = useState({ title: '', genre: '' });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const imageUrl = "img";
+    const handleAdd = () => {
+        console.log(`tytul: ${ formData.title }; rodzaj: ${ formData.genre }`);
+    };
 
-    return (
-        <div className="main-container">
-            
-            <h4>Likes Count: {count+count2+count3}</h4>
-
-            <div class="things0">
-                <div class="things">
-                    <div class="post">
-                        <h1>First Title</h1>
-                        <h4>{count}</h4>
-                        <button type="button" onClick={() => {
-                            setShow(!show);
-                            handleLikes();
-                        }}>
-                            {show === true ? 'Like' : 'Dislike'}
-                        </button>
-                    </div>
-                    <div class="post">
-                        <h1>Second Title</h1>
-                        <h4>{count2}</h4>
-                        <button type="button" onClick={() => {
-                            setShow2(!show2);
-                            handleLikes2();
-                        }}>
-                            {show2 === true ? 'Like' : 'Dislike'}
-                        </button>
-                    </div>
-                    <div class="post">
-                        <h1>Third Title</h1>
-                        <h4>{count3}</h4>
-                        <button type="button" onClick={() => {
-                            setShow3(!show3);
-                            handleLikes3();
-                        }}>
-                            {show3 === true ? 'Like' : 'Dislike'}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+  return (
+      <div className="container">
+          <div className="row">
+              <div className="col-md-6 offset-md-3">
+                  <form>
+                      <div className="mb-3">
+                          <label htmlFor="titleInput" className="form-label">Tytu� filmu</label>
+                          <input type="text" className="form-control" id="titleInput" name="title" value={formData.title} onChange={handleChange} />
+                      </div>
+                      <div className="mb-3">
+                          <label htmlFor="genreSelect" className="form-label">Rodzaj</label>
+                          <select className="form-select" id="genreSelect" name="genre" value={formData.genre} onChange={handleChange}>
+                              <option value="">---</option>
+                              <option value="Komedia">Komedia</option>
+                              <option value="Obyczajowy">Obyczajowy</option>
+                              <option value="Sensacyjny">Sensacyjny</option>
+                              <option value="Horror ">Horror</option>
+                          </select>
+                      </div>
+                      <button type="button" className="btn btn-primary" onClick={handleAdd}>Dodaj</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  );
 }
 
 export default App;
